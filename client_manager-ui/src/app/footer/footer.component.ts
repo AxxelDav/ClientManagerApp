@@ -7,6 +7,9 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
-  public autor: any = {nombre: 'Axel', apellido: 'Cespedes'};
+  public autor: any = {
+    nombre: 'Axel', 
+    apellido: 'Cespedes'
+  };
 
 }

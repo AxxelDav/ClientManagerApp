@@ -10,7 +10,7 @@ import swal from 'sweetalert2';
 })
 export class ClientesComponent {
 
-  clientes: Cliente[];
+  public clientes: Cliente[];
 
   constructor(private clienteService : ClienteService) { 
     this.clienteService.getClientes().subscribe(
@@ -50,14 +50,8 @@ export class ClientesComponent {
             )
           }
         )
-
-        
       }
     })
-
-
-
-    
   }
 
 }

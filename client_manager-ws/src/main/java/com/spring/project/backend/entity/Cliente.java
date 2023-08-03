@@ -1,5 +1,6 @@
 package com.spring.project.backend.entity;
 
+import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,13 +18,13 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
     @Column(name = "apellido")
     private String apellido;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "create_at")
