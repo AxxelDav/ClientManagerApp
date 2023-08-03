@@ -10,7 +10,7 @@
                     <input type="text" class="form-control" [(ngModel)]="cliente.nombre" name="nombre" required minlength="4" #nombre="ngModel">
                     <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
                         <div *ngIf="nombre.errors.required">
-                            Nombre es requerido
+                            El Nombre es requerido
                         </div>
                         <div *ngIf="nombre.errors.minlength">
                             Nombre debe tener al menos 4 caracteres
