@@ -28,6 +28,11 @@ export class ClienteService {
   create(cliente: Cliente): Observable<any> {
     return this.http.post<any>(this.urlEndpoint, cliente, {headers: this.httpHeaders}).pipe(
       catchError(e => {
+
+        if(e.status == 400) {
+          return throwError(e);
+        }
+
         console.error(e.error.mensaje);
         swal.fire( e.error.mensaje, 
                    e.error.error,
@@ -56,6 +61,11 @@ export class ClienteService {
     return this.http.put(`${this.urlEndpoint}/${cliente.id}`, cliente, { headers: this.httpHeaders }).pipe(
       map((response: any) => response.cliente as Cliente),
       catchError(e => {
+
+        if(e.status == 400) {
+          return throwError(e);
+        }
+        
         console.error(e.error.mensaje);
         swal.fire( e.error.mensaje, 
                    e.error.error, 

@@ -15,6 +15,8 @@ export class FormComponent implements OnInit {
 
   public titulo: string = "Crear Cliente";
 
+  public errores: string[];
+
   constructor(private clienteService: ClienteService, private router: Router, private activateRoute: ActivatedRoute) { }
 
   ngOnInit() { 
@@ -26,8 +28,13 @@ export class FormComponent implements OnInit {
       json => {
         this.router.navigate(['/clientes'])
         swal.fire('Nuevo cliente', `${json.mensaje}: ${json.cliente.nombre}`, 'success')
+      },
+      err => {
+        this.errores = err.error.errors as string[];
+        console.error('Código del error desde el backend: ' + err.status);
+        console.error(err.error.errors);
       }
-    )
+    );
   }
 
   cargarCliente(): void {
@@ -47,6 +54,11 @@ export class FormComponent implements OnInit {
       cliente => {
         this.router.navigate(['/clientes'])
         swal.fire('Cliente Actualizado', `Cliente ${cliente.nombre} ha sido actualizado con éxito!`, 'success')
+      },
+      err => {
+        this.errores = err.error.errors as string[];
+        console.error('Código del error desde el backend: ' + err.status);
+        console.error(err.error.errors);
       }
     )
   }
