@@ -6,11 +6,16 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { DirectivaComponent } from './directiva/directiva.component';
 import { ClientesComponent } from './clientes/clientes.component';
+import { FormComponent } from './clientes/form/form.component'
+import { PaginatorComponent } from './paginator/paginator.component';
 import { ClienteService } from './clientes/service/cliente.service';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { FormComponent } from './clientes/form/form.component'
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule  } from '@angular/material-moment-adapter';
+
 
 
 const routes: Routes = [
@@ -25,6 +30,10 @@ const routes: Routes = [
   },
   { 
     path: 'clientes', 
+    component: ClientesComponent 
+  },
+  { 
+    path: 'clientes/page/:page', 
     component: ClientesComponent 
   },
   {
@@ -45,13 +54,17 @@ const routes: Routes = [
     FooterComponent,
     DirectivaComponent,
     ClientesComponent,
-    FormComponent,    
+    FormComponent,
+    PaginatorComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
+    MatDatepickerModule, 
+    MatMomentDateModule
   ],
   providers: [ClienteService],
   bootstrap: [AppComponent]

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { CLIENTES } from '../clientes.json';
-import { Cliente } from '../cliente';
+import { Cliente } from '../model/cliente';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map,catchError } from 'rxjs/operators';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router'
+import { Region } from '../model/region';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +13,21 @@ import { Router } from '@angular/router'
 export class ClienteService {
 
   private urlEndpoint: string = 'http://localhost:8080/api/clientes';
+
+  private urlEndpointRegion: string = 'http://localhost:8080/api/regiones';
   
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) { 
+  }
 
-  getClientes(): Observable<Cliente[]> {
-    return this.http.get(this.urlEndpoint).pipe(
-      map(response => response as Cliente[])
+  getClientes(page: number): Observable<any> {
+    return this.http.get<any>(this.urlEndpoint + '/page/' + page).pipe(
+      map(json => {
+          json.content as Cliente[];
+          return json;
+      })
     );
   }
 
@@ -85,6 +91,10 @@ export class ClienteService {
         return throwError(e);
       })
     );;
+  }
+
+  getRegiones(): Observable<Region[]> {
+    return this.http.get<Region[]>(this.urlEndpointRegion)
   }
 
 }

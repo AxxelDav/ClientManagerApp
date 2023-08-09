@@ -20,6 +20,7 @@
                     <th>apellido</th>
                     <th>email</th>
                     <th>fecha</th>
+                    <th>region</th>
                     <th>
                         editar
                     </th>
@@ -35,6 +36,7 @@
                     <td>{{cliente.apellido | uppercase}}</td>
                     <td>{{cliente.email}}</td>
                     <td>{{cliente.createAt | date:"dd/MM/yyyy"}}</td>
+                    <td>{{cliente.region.nombre}}</td>
                     <td>
                         <button type="button" name="editar" [routerLink]="['/clientes/form', cliente.id]" class="btn btn-primary">editar</button>
                     </td>
@@ -44,5 +46,8 @@
                 </tr>
             </tbody>
         </table>
+        <div class="d-flex justify-content-center">
+            <paginator-nav *ngIf="paginador" [paginador] = "paginador"></paginator-nav> 
+        </div>
     </div>
 </div>

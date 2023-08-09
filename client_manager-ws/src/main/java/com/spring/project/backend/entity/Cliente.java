@@ -1,10 +1,12 @@
 package com.spring.project.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
@@ -35,13 +37,19 @@ public class Cliente implements Serializable {
     private String email;
 
     @Column(name = "create_at")
+    @NotNull(message = "no debe estar vacío")
     @Temporal(TemporalType.DATE)
     private Date createAt;
 
+    @NotNull(message = "la región no debe estar vacía")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "region_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Region region;
 
-    @PrePersist
-    public void prePersist() {
-        createAt = new Date();
-    }
+//    @PrePersist
+//    public void prePersist() {
+//        createAt = new Date();
+//    }
 
 }

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Cliente } from './cliente';
+import { Cliente } from './model/cliente';
 import { ClienteService } from './service/cliente.service';
 import swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -12,14 +13,25 @@ export class ClientesComponent {
 
   public clientes: Cliente[];
 
-  constructor(private clienteService : ClienteService) { 
-    this.clienteService.getClientes().subscribe(
-      clientes => this.clientes = clientes
-    );
+  public paginador: any;
+
+  constructor(private clienteService : ClienteService, private activateRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    
+
+    this.activateRoute.paramMap.subscribe(params => { 
+      let page: number = +params.get('page');
+
+      if(!page) 
+        page = 0;
+
+      this.clienteService.getClientes(page)
+        .subscribe(json => {
+          this.clientes = json.content as Cliente[];
+          this.paginador = json;
+        });
+    })
   }
 
   delete(cliente: Cliente): void {
@@ -53,5 +65,4 @@ export class ClientesComponent {
       }
     })
   }
-
 }
