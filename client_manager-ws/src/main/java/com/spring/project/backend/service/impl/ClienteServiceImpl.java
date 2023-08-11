@@ -1,6 +1,6 @@
 package com.spring.project.backend.service.impl;
 
-import com.spring.project.backend.repository.ClienteDao;
+import com.spring.project.backend.repository.ClienteRepository;
 import com.spring.project.backend.entity.Cliente;
 import com.spring.project.backend.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,36 +15,36 @@ import java.util.List;
 public class ClienteServiceImpl implements ClienteService {
 
     @Autowired
-    private ClienteDao clienteDao;
+    private ClienteRepository clienteRepository;
 
     @Override
     @Transactional(readOnly = true)
     public List<Cliente> findAll() {
-        return clienteDao.findAll();
+        return clienteRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
     public Page<Cliente> findAll(Pageable pageable) {
-        return clienteDao.findAll(pageable);
+        return clienteRepository.findAll(pageable);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Cliente findById(Long id) {
-        return clienteDao.findById(id).orElse(null);
+        return clienteRepository.findById(id).orElse(null);
     }
 
     @Override
     @Transactional
     public Cliente save(Cliente cliente) {
-        return clienteDao.save(cliente);
+        return clienteRepository.save(cliente);
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
-        clienteDao.deleteById(id);
+        clienteRepository.deleteById(id);
     }
 
 

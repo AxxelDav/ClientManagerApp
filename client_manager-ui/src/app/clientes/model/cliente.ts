@@ -1,3 +1,4 @@
+import { Factura } from "src/app/facturas/models/factura";
 import { Region } from "./region";
 
 export class Cliente {
@@ -6,5 +7,6 @@ export class Cliente {
     apellido: string;
     createAt: string;
     email: string;
-    region: Region
+    region: Region;
+    facturas: Array<Factura> = [];
 }

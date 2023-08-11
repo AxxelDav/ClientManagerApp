@@ -9,7 +9,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -47,9 +49,19 @@ public class Cliente implements Serializable {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Region region;
 
+    @JsonIgnoreProperties(value = {"cliente", "hibernateLazyInitializer", "handler"}, allowSetters = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Factura> facturas;
+
+
+
+    public Cliente() {
+        this.facturas = new ArrayList<>();
+    }
+
 //    @PrePersist
 //    public void prePersist() {
-//        createAt = new Date();
+//        this.createAt = new Date();
 //    }
 
 }

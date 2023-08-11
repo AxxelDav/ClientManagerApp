@@ -11,10 +11,17 @@ import { PaginatorComponent } from './paginator/paginator.component';
 import { ClienteService } from './clientes/service/cliente.service';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule  } from '@angular/material-moment-adapter';
+import { DetalleComponent } from './detalle/detalle.component';
+import { DetalleFacturaComponent } from './facturas/detalle-factura.component';
+import { FacturasComponent } from './facturas/facturas.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 
 
 
@@ -43,6 +50,18 @@ const routes: Routes = [
   {
     path: 'clientes/form/:id',
     component: FormComponent
+  },
+  {
+    path: 'clientes/detalle/:id',
+    component: DetalleComponent
+  },
+  {
+    path: 'facturas/:id',
+    component: DetalleFacturaComponent
+  },
+  {
+    path: 'facturas/form/:clienteId',
+    component: FacturasComponent
   }
 ]
 
@@ -55,7 +74,10 @@ const routes: Routes = [
     DirectivaComponent,
     ClientesComponent,
     FormComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    DetalleComponent,
+    DetalleFacturaComponent,
+    FacturasComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +86,11 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     MatDatepickerModule, 
-    MatMomentDateModule
+    MatMomentDateModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatFormFieldModule
   ],
   providers: [ClienteService],
   bootstrap: [AppComponent]
